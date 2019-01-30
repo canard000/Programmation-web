@@ -1,16 +1,19 @@
 var intervalID;
+var x;
 
-
-function modif(x){
-if (x>0){
-document.write(x);
-}
+function modif(){
+	if (x>=0){
+		console.log(x); <!-- affichage dans la console
+		x--;
+	}
+	else{
+		stopCompteur();
+	}
 }
 
 function startCompteur(){
-var i=10;
-intervalID=setInterval(modif(i),1000);
-i--;
+x=10
+intervalID=setInterval(modif,1000);
 }
 
 function stopCompteur(){

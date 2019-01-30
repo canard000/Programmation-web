@@ -1,9 +1,12 @@
 var intervalID;
 var x;
 
+
 function modif(){
 	if (x>=0){
-		console.log(x); <!-- affichage dans la console
+		div=document.getElementById('div');
+		div.innerHTML=x;
+	
 		x--;
 	}
 	else{

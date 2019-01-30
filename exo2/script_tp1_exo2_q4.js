@@ -14,7 +14,6 @@ function modif(){
 		canvas = document.getElementById("canvas"); 
 		context = canvas.getContext("2d");
 		context.fillStyle="red";
-		console.log(x3);
 		if(z2!=10){z2++;}
 		if(z3!=20){z3++;}
 		if(z1===0){

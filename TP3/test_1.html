@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test 1</title>
+  </head>
+  <canvas id="canvas" width="1000" height="100">
+Requiert un navigateur récent: Internet Explorer 9, Chrome, Firefox, Safari.
+</canvas>
+    <script type="text/javascript">
+    let timer;
+    canvas = document.getElementById("canvas");
+  context = canvas.getContext("2d");
+  context.fillStyle="red";
+  let x=0;
+  function clear(){
+      context.clearRect(0,0, 1000, 100); //Clear le canvas à chaque déplacement
+  }
+  function update(){
+      x+=10;
+  }
+  function draw(){
+      context.fillRect(x,10,50,50); //Déplace le rectangle vers la droite de 10 pixel
+  }
+  function pausecomp(millis)
+		{
+			var date = new Date();
+			var curDate = null;
+			do {
+				curDate = new Date();
+			} while(curDate-date < millis);
+		}
+
+  function game(){
+    clear();
+    pausecomp(1000);
+    update();
+    draw();
+    if(x>1000){
+      clearInterval(timer);
+    }
+  }
+  function lancement(){
+    timer=setInterval(game,16);
+  //  timer.clearInterval();
+  }
+
+
+    </script>
+  <body onload="lancement();">
+  </body>
+
+
+</htlm>

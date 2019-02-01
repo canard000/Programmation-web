@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test 3</title>
+  </head>
+  <canvas id="canvas" width="1000" height="100">
+Requiert un navigateur récent: Internet Explorer 9, Chrome, Firefox, Safari.
+</canvas>
+    <script type="text/javascript">
+    let timer;
+    canvas = document.getElementById("canvas");
+  context = canvas.getContext("2d");
+  context.fillStyle="red";
+  let x=0;
+  function clear(){
+      context.clearRect(0,0, 1000, 100); //Clear le canvas à chaque déplacement
+  }
+  function update(){
+      x+=10;
+  }
+  function draw(){
+      context.fillRect(10+x,10,50,50); //Déplace le rectangle vers la droite de 10 pixel
+  }
+
+
+  function game(){
+    clear();
+    update();
+    draw();
+
+  }
+  function lancement(){
+
+  }
+
+
+    </script>
+  <body onload="lancement();">
+  </body>
+
+
+</htlm>

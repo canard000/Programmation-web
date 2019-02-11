@@ -8,7 +8,7 @@ var paddleWidth = 100;
 var paddleHeight = 10;
 var y=canvas.height-100;
 var brickColumnCount = 6;
-var brickRowCount = 5;
+var brickRowCount = 4;
 var bricks = [];
 var brickWidth = 75;
 var brickHeight = 20;
@@ -192,19 +192,50 @@ function collisionDetection() {
     for(var r=0; r<brickRowCount; r++) {
       var b = bricks[c][r];
       if(b.status == 1) {
-        if(x > b.x && x < b.x+brickWidth && (y-ballRadius) > b.y && (y-ballRadius) < b.y+brickHeight) {
-          dy = -dy;
-          b.status = 0;
-          itcolor=(itcolor+1)%6;
-          score++;
-          if(score == brickRowCount*brickColumnCount) {
-                       alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
-                       document.location.reload();
-                   }
+         if(x>=b.x && x<=b.x+brickWidth && y==b.y){
+           dy=-dy;
+           b.status = 0;
+           itcolor=(itcolor+1)%6;
+           score++;
+           if(score == brickRowCount*brickColumnCount) {
+                        alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
+                        document.location.reload();
+                    }
+         }
+         else if(x>=b.x && x<=b.x+brickWidth && y==b.y+brickHeight){
+           dy=-dy;
+           b.status = 0;
+           itcolor=(itcolor+1)%6;
+           score++;
+           if(score == brickRowCount*brickColumnCount) {
+                        alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
+                        document.location.reload();
+                    }
+         }
+         else if(x==b.x && y>b.y && y<b.y+brickHeight){
+           dx=-dx;
+           b.status = 0;
+           itcolor=(itcolor+1)%6;
+           score++;
+           if(score == brickRowCount*brickColumnCount) {
+                        alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
+                        document.location.reload();
+                    }
+         }
+         else if(x==b.x+brickWidth && y>b.y && y<b.y+brickHeight){
+           dx=-dx;
+           b.status = 0;
+           itcolor=(itcolor+1)%6;
+           score++;
+           if(score == brickRowCount*brickColumnCount) {
+                        alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
+                        document.location.reload();
+                    }
+         }
+
         }
       }
     }
   }
-}
 
 window.addEventListener("load", init, false);

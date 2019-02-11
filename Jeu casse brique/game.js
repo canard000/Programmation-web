@@ -56,7 +56,8 @@ function init(){
   for(var c=0; c<brickColumnCount; c++) {
       bricks[c] = [];
       for(var r=0; r<brickRowCount; r++) {
-        bricks[c][r] = { x: 0, y: 0, status: 1};
+        ra=Math.floor(Math.random() * 3+1)
+        bricks[c][r] = { x: 0, y: 0, status: 1,coup: ra};
       }
 }
   document.addEventListener("keydown", keyDownHandler, false);
@@ -163,7 +164,12 @@ function drawBricks() {
             ctx.strokeStyle="black";
             ctx.lineWidth="2";
             ctx.rect(brickX, brickY, brickWidth, brickHeight);
-            ctx.fillStyle = "#0095DD";
+            switch(bricks[c][r].coup){
+              case 1: ctx.fillStyle = "#00ff00"; break; //vert
+              case 2: ctx.fillStyle = "#0033cc";break; //Bleu
+              case 3: ctx.fillStyle = "#000000";break; //Noir
+            }
+
             ctx.fill();
             ctx.stroke();
             ctx.closePath();
@@ -193,8 +199,12 @@ function collisionDetection() {
       var b = bricks[c][r];
       if(b.status == 1) {
          if(x>=b.x && x<=b.x+brickWidth && y==b.y){
-           dy=-dy;
-           b.status = 0;
+
+           b.coup--;
+           if(b.coup==0){
+             dy=-dy;
+             b.status = 0;
+           }
            itcolor=(itcolor+1)%6;
            score++;
            if(score == brickRowCount*brickColumnCount) {
@@ -203,8 +213,12 @@ function collisionDetection() {
                     }
          }
          else if(x>=b.x && x<=b.x+brickWidth && y==b.y+brickHeight){
-           dy=-dy;
-           b.status = 0;
+
+           b.coup--;
+           if(b.coup==0){
+             dy=-dy;
+             b.status = 0;
+           }
            itcolor=(itcolor+1)%6;
            score++;
            if(score == brickRowCount*brickColumnCount) {
@@ -213,8 +227,12 @@ function collisionDetection() {
                     }
          }
          else if(x==b.x && y>b.y && y<b.y+brickHeight){
-           dx=-dx;
-           b.status = 0;
+
+           b.coup--;
+           if(b.coup==0){
+              dx=-dx;
+             b.status = 0;
+           }
            itcolor=(itcolor+1)%6;
            score++;
            if(score == brickRowCount*brickColumnCount) {
@@ -223,8 +241,12 @@ function collisionDetection() {
                     }
          }
          else if(x==b.x+brickWidth && y>b.y && y<b.y+brickHeight){
-           dx=-dx;
-           b.status = 0;
+           b.coup--;
+           if(b.coup==0){
+              dx=-dx;
+             b.status = 0;
+           }
+
            itcolor=(itcolor+1)%6;
            score++;
            if(score == brickRowCount*brickColumnCount) {

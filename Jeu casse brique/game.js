@@ -21,6 +21,9 @@ var itcolor=0;
 var brickOffsetLeft = 30;
 var score = 0;
 var lives=3;
+var invulnerable=0;
+var date=0;
+var totalcout=0;
 var animFrame = window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame    ||
@@ -45,19 +48,13 @@ var animFrame = window.requestAnimationFrame ||
                 }
             }
 
-            /*function mouseMoveHandler(e) { //Déplacement avec la souris
-                var relativeX = e.clientX - canvas.offsetLeft;
-                if(relativeX > 0 && relativeX < canvas.width) {
-                    paddleX = relativeX - paddleWidth/2;
-                }
-            }*/
-
 function init(){
   for(var c=0; c<brickColumnCount; c++) {
       bricks[c] = [];
       for(var r=0; r<brickRowCount; r++) {
         ra=Math.floor(Math.random() * 3+1)
         bricks[c][r] = { x: 0, y: 0, status: 1,coup: ra};
+        totalcout+=ra;
       }
 }
   document.addEventListener("keydown", keyDownHandler, false);
@@ -87,6 +84,14 @@ function updateGame(){
   updatePaddle();
   collisionDetection();
   updateBall();
+  if(invulnerable==1){
+    date++;
+  }
+  if(date==2 && invulnerable==1){
+    invulnerable=0;
+    date=0;
+  }
+  console.log(invulnerable);
 }
 
 function drawGame() {
@@ -199,60 +204,88 @@ function collisionDetection() {
       var b = bricks[c][r];
       if(b.status == 1) {
          if(x>=b.x && x<=b.x+brickWidth && y==b.y){
-
-           b.coup--;
-           if(b.coup==0){
+           if(invulnerable==1){
              dy=-dy;
-             b.status = 0;
            }
-           itcolor=(itcolor+1)%6;
-           score++;
-           if(score == brickRowCount*brickColumnCount) {
-                        alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
-                        document.location.reload();
-                    }
+           else{
+             b.coup--;
+             invulnerable=1;
+             if(b.coup==0){
+               b.status = 0;
+             }
+             dy=-dy;
+             itcolor=(itcolor+1)%6;
+             score++;
+             if(score == totalcout) {
+                          alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
+                          document.location.reload();
+                      }
+           }
+
+
          }
          else if(x>=b.x && x<=b.x+brickWidth && y==b.y+brickHeight){
-
-           b.coup--;
-           if(b.coup==0){
+           if(invulnerable==1){
              dy=-dy;
-             b.status = 0;
            }
-           itcolor=(itcolor+1)%6;
-           score++;
-           if(score == brickRowCount*brickColumnCount) {
-                        alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
-                        document.location.reload();
-                    }
+           else{
+             b.coup--;
+             invulnerable=1;
+             if(b.coup==0){
+               b.status = 0;
+             }
+             dy=-dy;
+             itcolor=(itcolor+1)%6;
+             score++;
+             if(score ==  totalcout) {
+                          alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
+                          document.location.reload();
+                      }
+           }
+
          }
          else if(x==b.x && y>b.y && y<b.y+brickHeight){
-
-           b.coup--;
-           if(b.coup==0){
-              dx=-dx;
-             b.status = 0;
+           if(invulnerable==1){
+             dx=-dx;
            }
-           itcolor=(itcolor+1)%6;
-           score++;
-           if(score == brickRowCount*brickColumnCount) {
-                        alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
-                        document.location.reload();
-                    }
+           else{
+             b.coup--;
+             invulnerable=1;
+             if(b.coup==0){
+
+               b.status = 0;
+             }
+             dx=-dx;
+             itcolor=(itcolor+1)%6;
+             score++;
+             if(score ==  totalcout) {
+                          alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
+                          document.location.reload();
+                      }
+           }
+
+
          }
          else if(x==b.x+brickWidth && y>b.y && y<b.y+brickHeight){
-           b.coup--;
-           if(b.coup==0){
-              dx=-dx;
-             b.status = 0;
+           if(invulnerable==1){
+             dx=-dx;
+           }
+           else{
+             b.coup--;
+             invulnerable=1;
+             if(b.coup==0){
+
+               b.status = 0;
+             }
+             dx=-dx;
+             itcolor=(itcolor+1)%6;
+             score++;
+             if(score ==  totalcout) {
+                          alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
+                          document.location.reload();
+                      }
            }
 
-           itcolor=(itcolor+1)%6;
-           score++;
-           if(score == brickRowCount*brickColumnCount) {
-                        alert("YOU WIN, CONGRATULATIONS!\n SCORE:    "+score);
-                        document.location.reload();
-                    }
          }
 
         }
